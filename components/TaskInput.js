@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import { View, TextInput, Button, StyleSheet } from 'react-native';
 
 const TaskInput = ({ onAddTask }) => {
-  const [task, setTask] = useState('');
+  const [taskValue, setTaskValue] = useState('');
 
   const handleAddTask = () => {
-    if (task.length > 0) {
-      onAddTask(task);
-      setTask('');
+    if (taskValue.trim()) {
+      onAddTask(taskValue);
+      setTaskValue('');
     }
   };
 
@@ -15,12 +15,11 @@ const TaskInput = ({ onAddTask }) => {
     <View style={styles.inputContainer}>
       <TextInput
         style={styles.input}
-        placeholder="Enter a task"
-        placeholderTextColor="#999" // Set placeholder text color
-        value={task}
-        onChangeText={setTask}
+        value={taskValue}
+        onChangeText={setTaskValue}
+        placeholder="Enter task"
       />
-      <Button title="Add" onPress={handleAddTask} color="#52A7D8" />
+      <Button title="Add Task" onPress={handleAddTask} />
     </View>
   );
 };
@@ -28,16 +27,16 @@ const TaskInput = ({ onAddTask }) => {
 const styles = StyleSheet.create({
   inputContainer: {
     flexDirection: 'row',
+    justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: 16,
   },
   input: {
     flex: 1,
-    borderColor: '#ccc',
+    borderColor: '#ddd',
     borderWidth: 1,
     padding: 8,
     marginRight: 8,
-    color: 'black', // Set input text color to black
   },
 });
 

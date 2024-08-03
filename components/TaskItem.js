@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import { Checkbox } from 'react-native-paper'; // Using react-native-paper as an alternative
+import { Checkbox } from 'react-native-paper'; // Using react-native-paper for checkbox
 
 const TaskItem = ({ task, onCompleteTask, onDeleteTask }) => {
   return (
@@ -15,6 +15,7 @@ const TaskItem = ({ task, onCompleteTask, onDeleteTask }) => {
       <TouchableOpacity onPress={() => onDeleteTask(task.key)}>
         <Text style={styles.deleteText}>Delete</Text>
       </TouchableOpacity>
+      <Text style={styles.xpText}>XP: {task.xp}</Text> 
     </View>
   );
 };
@@ -38,6 +39,10 @@ const styles = StyleSheet.create({
   },
   deleteText: {
     color: '#52A7D8',
+  },
+  xpText: {
+    color: '#52A7D8',
+    marginLeft: 10,
   },
 });
 

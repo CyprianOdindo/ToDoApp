@@ -1,22 +1,30 @@
 import React, { useState } from 'react';
 import { View, FlatList, StyleSheet, Text, Button } from 'react-native';
-import TaskInput from '../components/TaskInput'; // Adjust the path as necessary
-import TaskItem from '../components/TaskItem'; // Adjust the path as necessary
+import TaskInput from '../components/TaskInput';
+import TaskItem from '../components/TaskItem';
 
-const HomeScreen = () => {
+const HomeScreen = ({navigation}) => {
   const [tasks, setTasks] = useState([]);
+  const [userXP, setUserXP] = useState(0);
+  const [level, setLevel] = useState(1);
+
+  const calculateLevel = (xp) => {
+    return Math.floor(xp / 100) + 1; // Example leveling system
+  };
 
   const addTask = (taskValue) => {
-    setTasks([
-      ...tasks,
-      { key: String(tasks.length + 1), value: taskValue, completed: false },
-    ]);
+    const xp = Math.floor(Math.random() * 50) + 10; // Random XP for demonstration
+    setTasks([...tasks, { key: String(tasks.length + 1), value: taskValue, completed: false, xp }]);
   };
 
   const completeTask = (taskKey) => {
     setTasks(tasks.map(task =>
       task.key === taskKey ? { ...task, completed: true } : task
     ));
+    // Add XP when task is completed
+    const completedTask = tasks.find(task => task.key === taskKey);
+    setUserXP(userXP + completedTask.xp);
+    setLevel(calculateLevel(userXP + completedTask.xp));
   };
 
   const deleteTask = (taskKey) => {
@@ -25,7 +33,11 @@ const HomeScreen = () => {
 
   return (
     <View style={styles.screen}>
-      <Text style={styles.title}/>
+      <Button title='GO to Goals'
+              onPress={()=>navigation.navigate('Goals')}/>
+      <Text style={styles.title}>To-Do List</Text>
+      <Text style={styles.levelText}>Level: {level}</Text>
+      <Text style={styles.xpText}>XP: {userXP}</Text>
       <TaskInput onAddTask={addTask} />
       <FlatList
         data={tasks}
@@ -53,6 +65,18 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     textAlign: 'center',
     color: 'black',
+  },
+  levelText: {
+    fontSize: 18,
+    marginBottom: 8,
+    textAlign: 'center',
+    color: 'black',
+  },
+  xpText: {
+    fontSize: 18,
+    marginBottom: 16,
+    textAlign: 'center',
+    color: '#52A7D8',
   },
 });
 
