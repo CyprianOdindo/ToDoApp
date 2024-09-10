@@ -35,7 +35,7 @@ const HomeScreen = ({navigation}) => {
     <View style={styles.screen}>
       <Button title='GO to Goals'
               onPress={()=>navigation.navigate('Goals')}/>
-      <Text style={styles.title}>To-Do List</Text>
+      <Text style={styles.title}/>
       <Text style={styles.levelText}>Level: {level}</Text>
       <Text style={styles.xpText}>XP: {userXP}</Text>
       <TaskInput onAddTask={addTask} />
